@@ -1,14 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, TextInput } from 'react-native-web';
+import { useState,useEffect } from 'react';
+import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
+
+import ListItem from './Components/ListItem';
 
 export default function App() {
   const [inputValue, setInputValue] = useState("")
   const [placeList, setPlaceList] = useState("")
-  const handleInputChange = text =>{
-    alert(text)
-  }
+  const test = false
+  const [allAdvocates, setAllAdvocates] = useState({})
+
+    useEffect(() => {
+        const api = "https://fathomless-coast-82114.herokuapp.com/advocates"
+      fetch(api)
+      .then(res=>res.json())
+      .then(data=>{
+        setAllAdvocates(data)
+          console.log(data)
+      })
+    }, [])
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
@@ -22,16 +32,16 @@ export default function App() {
        onPress={()=>{
          if(inputValue!== ""){
 
-           setPlaceList(...placeList, inputValue)
+          setPlaceList([...placeList, inputValue])
          }
        }}
        />
-
       </View>
-    
-
+      <Text>Total Advocates Found: {allAdvocates.length}</Text>
+      <View>
+        <ListItem param={test}></ListItem>
+      </View>
    
-      <StatusBar style="auto" />
     </View>
   );
 }
