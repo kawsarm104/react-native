@@ -1,8 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-web';
 
 export default function App() {
+  const [inputValue, setInputValue] = useState("")
+  const [placeList, setPlaceList] = useState("")
   const handleInputChange = text =>{
     alert(text)
   }
@@ -12,11 +15,18 @@ export default function App() {
           < TextInput
          style={styles.input}
           placeholder="Type anything here"
-          onChangeText={text=>handleInputChange(text)}
+          value={inputValue}
+          onChangeText={text=>setInputValue(text)}
        />
-       <Button title="Add">
+       <Button title="Add"
+       onPress={()=>{
+         if(inputValue!== ""){
 
-       </Button>
+           setPlaceList(...placeList, inputValue)
+         }
+       }}
+       />
+
       </View>
     
 
