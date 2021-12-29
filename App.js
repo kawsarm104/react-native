@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import Advocates from './Components/Advocates';
 
 import ListItem from './Components/ListItem';
 
@@ -8,7 +9,7 @@ export default function App() {
   const [inputValue, setInputValue] = useState("")
   const [placeList, setPlaceList] = useState("")
   const test = false
-  const [allAdvocates, setAllAdvocates] = useState({})
+  const [allAdvocates, setAllAdvocates] = useState(null)
 
     useEffect(() => {
         const api = "https://fathomless-coast-82114.herokuapp.com/advocates"
@@ -38,6 +39,11 @@ export default function App() {
        />
       </View>
       <Text>Total Advocates Found: {allAdvocates.length}</Text>
+     <View>
+     {
+        allAdvocates.map(advocate=><Advocates key={advocate._id} advocate={advocate} ></Advocates>)
+      }
+     </View>
       <View>
         <ListItem param={test}></ListItem>
       </View>
