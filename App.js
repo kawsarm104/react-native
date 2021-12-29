@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-web';
 
 export default function App() {
+  const handleInputChange = text =>{
+    alert(text)
+  }
   return (
     <View style={styles.container}>
       <Text>Hello Native .. </Text>
@@ -10,6 +13,7 @@ export default function App() {
       < TextInput
          style={styles.input}
           placeholder="Type anything here"
+          onChangeText={text=>handleInputChange(text)}
        />
 
    
